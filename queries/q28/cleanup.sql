@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS q28training;
+DROP TABLE IF EXISTS q28testing;

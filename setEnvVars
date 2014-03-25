@@ -1,0 +1,62 @@
+## determine base directory
+cd "$(dirname ${BASH_SOURCE[0]})"
+export BIG_BENCH_HOME="$PWD"
+cd "$OLDPWD"
+
+##  ADAPT BELOW VARIABLES TO YOUR CLUSTER
+## --------------------------------------
+
+##SSH options
+BIG_BENCH_SSH_OPTIONS=""												# you want to make sure that you can reach all nodes in BIG_BENCH_NODES file via ssh. use this variable to specify the key file to ssh (e.g.: SSH_OPTIONS="-i <keyfile>")
+
+## hadoop environment
+export BIG_BENCH_HIVE_LIBS="/usr/lib/hive/lib"                      #especialy location of: hive-contrib.jar;
+export BIG_BENCH_HADOOP_LIBS="/usr/lib/hadoop/client"				#especialy location of: hadoop-hdfs.jar;
+export BIG_BENCH_HADOOP_LIBS_NATIVE="/usr/lib/hadoop/lib/native"
+export BIG_BENCH_HADOOP_CONF="/etc/hadoop/conf.cloudera.hdfs"		#folder containing the cluster setup *-site.xml files like core-site.xml 
+
+## set hdfs related directories
+export BIG_BENCH_HDFS_MOUNT_POINT="/mnt/hdfs"
+export BIG_BENCH_HDFS_NAMENODE="bb-aws1.us-west-2.compute.internal:8022"
+export BIG_BENCH_USER="$USER"
+export BIG_BENCH_HDFS_ABSOLUTE_PATH="/user/$BIG_BENCH_USER"					#working dir of benchmark. 
+export BIG_BENCH_HDFS_REAL_BASE_DIR="$BIG_BENCH_HDFS_MOUNT_POINT$BIG_BENCH_HDFS_ABSOLUTE_PATH"
+export BIG_BENCH_HDFS_RELATIVE_DATA_DIR="benchmarks/bigbench/data"
+export BIG_BENCH_HDFS_RELATIVE_QUERY_RESULT_DIR="benchmarks/bigbench/queryResults"
+export BIG_BENCH_HDFS_RELATIVE_TEMP_DIR="benchmarks/bigbench/temp"
+export BIG_BENCH_HDFS_ABSOLUTE_DATA_DIR="$BIG_BENCH_HDFS_ABSOLUTE_PATH/$BIG_BENCH_HDFS_RELATIVE_DATA_DIR"
+export BIG_BENCH_HDFS_ABSOLUTE_QUERY_RESULT_DIR="$BIG_BENCH_HDFS_ABSOLUTE_PATH/$BIG_BENCH_HDFS_RELATIVE_QUERY_RESULT_DIR"
+export BIG_BENCH_HDFS_ABSOLUTE_TEMP_DIR="$BIG_BENCH_HDFS_ABSOLUTE_PATH/$BIG_BENCH_HDFS_RELATIVE_TEMP_DIR"
+
+##  <END> ADAPT BELOW VARIABLES TO YOUR CLUSTER
+## ----------------------------------------
+
+## set important subdirectories
+#locations must be reachable from all Nodes. a) place the folder in you home and mirror it on every node b) place folder into a shared location like a network file system c) simply mount the hdfs as fuse file system an place it there
+export BIG_BENCH_BASH_SCRIPT_DIR="$BIG_BENCH_HOME/scripts"
+export BIG_BENCH_DATA_GENERATOR_DIR="$BIG_BENCH_HOME/data-generator"
+export BIG_BENCH_HIVE_SCRIPT_DIR="$BIG_BENCH_HOME/hive"
+export BIG_BENCH_QUERIES_DIR="$BIG_BENCH_HOME/queries"
+
+## cluster node addresses
+export BIG_BENCH_NODES="$BIG_BENCH_BASH_SCRIPT_DIR/nodes.txt"			#file containing all your computation nodes dns names or ip addresses (one ip per line)
+
+## Data generator options 
+export BIG_BENCH_DATAGEN_DFS_REPLICATION="1" 							#(recommended:1) replication count for files written by the datagenerator 
+export BIG_BENCH_DATAGEN_TABLES=""										# if empty-> generate all tables. Else: specify tables to generate. e.g. BIGBENCH_TABLES="item customer store". Tables to choose from: customer customer_address customer_demographics date_dim dbgen_version household_demographics income_band inventory item item_marketprices product_reviews promotion reason ship_mode store store_returns store_sales time_dim warehouse web_clickstreams web_page  web_returns web_sales web_site
+
+#do not touch lines below unless you are sure you need to tamper with that
+export BIG_BENCH_DATAGEN_CORE_SITE="$BIG_BENCH_HADOOP_CONF/core-site.xml"
+export BIG_BENCH_DATAGEN_HDFS_SITE="$BIG_BENCH_HADOOP_CONF/hdfs-site.xml"
+
+#every table gets its own folder containing 1-n splits of the generated file. A folder per table, because HIVE works best with this.
+export BIG_BENCH_DATAGEN_PDGF_OUT="\'${BIG_BENCH_HDFS_ABSOLUTE_DATA_DIR}/\'+table.getName\(\)+\'/\' "	
+export BIG_BENCH_DATAGEN_JVM_ENV=" -Xmx750m -cp \"${BIG_BENCH_HADOOP_LIBS}/*:$BIG_BENCH_DATA_GENERATOR_DIR/pdgf.jar\" "
+
+find $BIG_BENCH_HOME -name '*.sh' -exec chmod 755 {} +
+
+## add bash script dir to path (if not already present)
+if ! echo $PATH | grep "$BIG_BENCH_BASH_SCRIPT_DIR" > /dev/null 2>&1
+then
+  export PATH="$BIG_BENCH_BASH_SCRIPT_DIR:$PATH"
+fi

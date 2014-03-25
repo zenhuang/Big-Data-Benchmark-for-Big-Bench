@@ -1,0 +1,5 @@
+UNDER DEVELOPMENT
+-works-
+
+todo:
+format kmeans result and write to hdfs

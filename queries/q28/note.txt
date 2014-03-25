@@ -1,0 +1,4 @@
+UNDER DEVELOPMENT
+-some issues remaining-
+- mahout kmeans runs out of memory
+- write result to hdfs

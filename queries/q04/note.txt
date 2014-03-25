@@ -1,0 +1,5 @@
+UNDER DEVELOPMENT
+-works-
+
+
+I couldn't fully understand the proposed pattern. need more careful investigation.

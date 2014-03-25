@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*******************************************************************************
+ * Copyright (c) 2013, bankmark and/or its affiliates. All rights reserved. 
+ * bankmark UG PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ *
+ *
+ ******************************************************************************/
+-->
+<generation>
+ 
+	<!-- DEFAULT Scheduler for all Tables, if no table specific scheduler is specified-->
+	<scheduler name="DefaultScheduler"></scheduler>
+	<!-- DEFAULT output for all Tables, if no table specific output is specified-->
+	<output name="CSVRowOutput">
+		<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+		<outputDir>output/</outputDir>
+		<fileEnding>.dat</fileEnding>
+		<delimiter>|</delimiter>
+		<charset>UTF-8</charset>
+		<sortByRowID>true</sortByRowID>
+	</output>
+
+	<schema name="default">
+		<tables>	
+			<table name ="store_sales">
+				<output name ="MultiLineOutput">
+					<multilineFieldId>2</multilineFieldId>
+					<interleaveMultilines>false</interleaveMultilines>
+					<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+					<outputDir>output/</outputDir>
+					<fileEnding>.dat</fileEnding>
+					<delimiter>|</delimiter>
+					<charset>UTF-8</charset>
+					<sortByRowID>true</sortByRowID>
+				</output>
+			</table>
+			<table name ="store_returns">
+				<output name ="MultiLineOutput">
+					<multilineFieldId>2</multilineFieldId>
+					<interleaveMultilines>false</interleaveMultilines>
+					<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+					<outputDir>output/</outputDir>
+					<fileEnding>.dat</fileEnding>
+					<delimiter>|</delimiter>
+					<charset>UTF-8</charset>
+					<sortByRowID>true</sortByRowID>
+				</output>
+			</table>
+			<table name ="web_sales">
+				<output name ="MultiLineOutput">
+					<multilineFieldId>3</multilineFieldId>
+					<interleaveMultilines>false</interleaveMultilines>
+					<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+					<outputDir>output/</outputDir>
+					<fileEnding>.dat</fileEnding>
+					<delimiter>|</delimiter>
+					<charset>UTF-8</charset>
+					<sortByRowID>true</sortByRowID>
+				</output>
+			</table>
+			<table name ="web_returns">
+				<output name ="MultiLineOutput">
+					<multilineFieldId>2</multilineFieldId>
+					<interleaveMultilines>false</interleaveMultilines>
+					<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+					<outputDir>output/</outputDir>
+					<fileEnding>.dat</fileEnding>
+					<delimiter>|</delimiter>
+					<charset>UTF-8</charset>
+					<sortByRowID>true</sortByRowID>
+				</output>
+			</table>
+			<table name ="web_clickstreams">
+				<output name ="MultiLineOutput">
+					<multilineFieldId>3</multilineFieldId>
+					<interleaveMultilines>true</interleaveMultilines>
+					<fileTemplate>outputDir + table.getName() +(nodeCount!=1?"_"+Integer.toString(nodeNumber):"")+ fileEnding</fileTemplate>
+					<outputDir>output/</outputDir>
+					<fileEnding>.dat</fileEnding>
+					<delimiter>|</delimiter>
+					<charset>UTF-8</charset>
+					<sortByRowID>true</sortByRowID>
+				</output>
+			</table>	
+		</tables>
+	</schema>
+</generation>
