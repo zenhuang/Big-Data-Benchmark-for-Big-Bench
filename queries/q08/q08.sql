@@ -41,7 +41,7 @@ CREATE TABLE sales_review AS SELECT * FROM (
 			FROM clicks
 			MAP clicks.item, clicks.uid, clicks.c_date, clicks.c_time, clicks.wpt
 			-- USING 'python q8_mapper.py' || NO-OP mapper 
-			USGIN 'cat' 
+			USING 'cat' 
 			AS item, uid, c_date, c_time, wpt
 			CLUSTER BY uid
 		) map_output
