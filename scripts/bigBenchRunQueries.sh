@@ -51,7 +51,7 @@ echo "==============================================="
 for (( i=$FIRST_QUERY; i <=$LAST_QUERY; i++ ))
 do
 
-echo	$BIG_BENCH_BASH_SCRIPT_DIR/bigBenchRunQuery.sh ${i}
+	$BIG_BENCH_BASH_SCRIPT_DIR/bigBenchRunQuery.sh ${i}
 
 done
 
