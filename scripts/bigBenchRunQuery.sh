@@ -23,7 +23,7 @@ LOG_DIR_NAME="$BIG_BENCH_HOME/logs"
 LOG_FILE_NAME="$LOG_DIR_NAME/$QUERY_NAME.log"
 
 if [ ! -d $LOG_DIR_NAME ]; then
-	mkdir -d "$LOG_DIR_NAME"
+	mkdir -p "$LOG_DIR_NAME"
 fi
 
 echo "==============================================="
