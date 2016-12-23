@@ -185,7 +185,7 @@ query_run_validate_method () {
       VALIDATION_PASSED="0"
     fi
 
-    if diff -q "$VALIDATION_RESULTS_FILENAME" <(hadoop fs -cat "$RESULT_DIR/*")
+    if ${BIG_BENCH_DIFF_BINARY} "$VALIDATION_RESULTS_FILENAME" <(hadoop fs -cat "$RESULT_DIR/*")
     then
       echo "Validation of $VALIDATION_RESULTS_FILENAME passed: Query returned correct results"
     else
