@@ -47,7 +47,7 @@ FROM (
   AND d_moy = ${hiveconf:q17_month}
   AND (p_channel_dmail = 'Y' OR p_channel_email = 'Y' OR p_channel_tv = 'Y')
 ) promotional_sales
-JOIN (
+CROSS JOIN (
   SELECT SUM(ss_ext_sales_price) total
   FROM store_sales ss
   JOIN date_dim dd ON ss.ss_sold_date_sk = dd.d_date_sk

@@ -203,7 +203,7 @@ object NaiveBayesClassifier {
       inputTable.show(10)
     }
     //split review text into terms using delimiter " " (simplistic)
-   inputTable.map(row => ((row.getAs[Long](0),row.getAs[Int](1)),row.getAs[String](2).split(" ").toSeq))
+   inputTable.rdd.map(row => ((row.getAs[Long](0),row.getAs[Int](1)),row.getAs[String](2).split(" ").toSeq))
   }
 
   def loadFromTextFile(inputFile: String, sc: SparkContext):RDD[((Long,Int), Seq[String])] = {

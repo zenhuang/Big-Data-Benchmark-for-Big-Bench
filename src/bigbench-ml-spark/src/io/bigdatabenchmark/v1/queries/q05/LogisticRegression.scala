@@ -193,7 +193,7 @@ object LogisticRegression {
     val averageOfFirstRow = inputTable.select(avg(inputTable.col("clicks_in_category"))).head()
     println(s"average: $averageOfFirstRow")
     val average = averageOfFirstRow.getDouble(0)
-    val points: RDD[LabeledPoint] = inputTable.map(line => dataFrameRowToLP(line, average)).cache()
+    val points: RDD[LabeledPoint] = inputTable.rdd.map(line => dataFrameRowToLP(line, average)).cache()
     (average, points)
   }
 

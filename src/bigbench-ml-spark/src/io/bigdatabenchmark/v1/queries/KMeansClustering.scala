@@ -165,7 +165,7 @@ object KMeansClustering {
     println(s"""loading data from metastore table: "${options('input)}" ...""")
     val sqlCtx = new HiveContext(sc)
     val inputTable = sqlCtx.table(options('input))
-    inputTable.map(s => dataFrameRowToRDD(s))
+    inputTable.rdd.map(s => dataFrameRowToRDD(s))
   }
   /**
    * convertes row from dataFrame to Vectors
